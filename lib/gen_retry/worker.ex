@@ -38,6 +38,7 @@ defmodule GenRetry.Worker do
     rescue
       e ->
         state.logger.log(inspect(e))
+        state.logger.log(inspect(__STACKTRACE__))
 
         if should_try_again(state) do
           retry_at = :erlang.system_time(:milli_seconds) + delay_time(state)
